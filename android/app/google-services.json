@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "785005721530",
+    "firebase_url": "https://connect-900.firebaseio.com",
+    "project_id": "connect-900",
+    "storage_bucket": "connect-900.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:785005721530:android:215896104e99d1647d0f83",
+        "android_client_info": {
+          "package_name": "com.conn.smit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "785005721530-h61e8rc5cudpe0qic811a53noniea0fu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjMcqeRrrdlE6ZQKUARoZHUtRfv5hVi6g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "785005721530-h61e8rc5cudpe0qic811a53noniea0fu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
