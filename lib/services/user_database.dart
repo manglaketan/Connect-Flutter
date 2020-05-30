@@ -9,6 +9,10 @@ class DatabaseService {
   DatabaseService({this.uid});
 
   Future updateUserData(UserData _tempuser) async {
+    List<String> combined = _tempuser.name.split(' ');
+    combined.addAll(_tempuser.skills);
+    combined.addAll(_tempuser.hobbies);
+    combined.addAll([_tempuser.RegNo]);
     return await userref.document(uid).setData({
       'RegNo': _tempuser.RegNo,
       'name': _tempuser.name,
@@ -17,7 +21,8 @@ class DatabaseService {
       "hobbies": _tempuser.hobbies,
       "achievements": _tempuser.achievements,
       "participation": _tempuser.participation,
-      "phone": _tempuser.phone
+      "phone": _tempuser.phone,
+      "combined": combined
     });
   }
 

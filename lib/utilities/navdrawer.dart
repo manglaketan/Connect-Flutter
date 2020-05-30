@@ -34,10 +34,27 @@ class Custom_Drawer extends StatelessWidget {
                   thickness: 3.0,
                   color: mylightyellow,
                 ),
-                Tiles("My Profile", Icons.person, () => null),
-                Tiles("Chats", Icons.chat,
-                    () => {Navigator.pushNamed(context, '/chat_page')}),
-                Tiles("Search People", Icons.search, () => null),
+                Tiles(
+                    "My Profile",
+                    Icons.person,
+                    () => {
+                          Navigator.pop(context),
+                          Navigator.pushNamed(context, '/profile')
+                        }),
+                Tiles(
+                    "Chats",
+                    Icons.chat,
+                    () => {
+                          Navigator.pop(context),
+                          Navigator.pushNamed(context, '/chat_page')
+                        }),
+                Tiles(
+                    "Search People",
+                    Icons.search,
+                    () => {
+                          Navigator.pop(context),
+                          Navigator.pushNamed(context, '/search')
+                        }),
                 Tiles("Add Event", Icons.playlist_add, () => null),
                 Tiles("My Events", Icons.event, () => null),
                 Tiles("Sign Out", Icons.remove_circle_outline, () async {
