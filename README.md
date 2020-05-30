@@ -1,4 +1,4 @@
-# smit
+#Connect
 
 A new Flutter application.
 
