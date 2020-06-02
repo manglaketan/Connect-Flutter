@@ -12,62 +12,6 @@ class Custom_Drawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _showDialog() {
-      // flutter defined function
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          // return object of type Dialog
-          return AlertDialog(
-            contentPadding: EdgeInsets.all(12.0),
-            backgroundColor: myblue,
-            title: new Text(
-              "Are You Sure?",
-              style: TextStyle(
-                  color: mylightyellow,
-                  fontSize: 25.0,
-                  fontFamily: "Poppins",
-                  fontWeight: FontWeight.w700),
-            ),
-            content: new Text(
-              "${user.name.split(' ')[0]}, you will be signed out of Connect!",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: "Lato",
-                  fontWeight: FontWeight.w700),
-            ),
-            actions: <Widget>[
-              // usually buttons at the bottom of the dialog
-              new FlatButton(
-                child: new Text(
-                  "Yes",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: "Lato",
-                      fontWeight: FontWeight.w700),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              new FlatButton(
-                child: new Text(
-                  "No",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: "Lato",
-                      fontWeight: FontWeight.w700),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
-
     // TODO: implement build
     return Drawer(
         child: Container(
@@ -128,8 +72,60 @@ class Custom_Drawer extends StatelessWidget {
                         }),
                 Tiles("Sign Out", Icons.remove_circle_outline, () async {
 //                  _showDialog();
-                  await _auth.signout();
-                  Navigator.pushReplacementNamed(context, '/');
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      // return object of type Dialog
+                      return AlertDialog(
+                        contentPadding: EdgeInsets.all(12.0),
+                        backgroundColor: myblue,
+                        title: new Text(
+                          "Are You Sure?",
+                          style: TextStyle(
+                              color: mylightyellow,
+                              fontSize: 25.0,
+                              fontFamily: "Poppins",
+                              fontWeight: FontWeight.w700),
+                        ),
+                        content: new Text(
+                          "${user.name.split(' ')[0]}, you will be signed out of Connect!",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: "Lato",
+                              fontWeight: FontWeight.w700),
+                        ),
+                        actions: <Widget>[
+                          // usually buttons at the bottom of the dialog
+                          new FlatButton(
+                            child: new Text(
+                              "Yes",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: "Lato",
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            onPressed: () async {
+                              await _auth.signout();
+                              Navigator.pushReplacementNamed(context, '/');
+                            },
+                          ),
+                          new FlatButton(
+                            child: new Text(
+                              "No",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: "Lato",
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 })
               ],
             )));
