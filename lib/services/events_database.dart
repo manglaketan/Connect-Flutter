@@ -8,7 +8,9 @@ class EventDatabase {
   EventDatabase({this.eventid});
 
   Future updateUserData(Event _tempuser) async {
+    print("Updating");
     return await eventref.document(eventid).setData({
+      'eventid':_tempuser.eventId,
       'name': _tempuser.eventname,
       "link": _tempuser.regnlink,
       "description": _tempuser.description,
@@ -21,6 +23,7 @@ class EventDatabase {
   List<Event> _userlistfromsnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return Event(
+        eventId: eventid,
         description: doc.data['description'],
         eventname: doc.data['name'],
         regnlink: doc.data['link'],

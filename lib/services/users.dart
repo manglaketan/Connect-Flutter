@@ -14,7 +14,7 @@ class UserData {
   List<String> skills;
   List<String> achievements; //List of String values for each
   List<int> participation; //List of event IDs for the events participated
-  Image profileImage;
+  String profileImage;
   String uid;
   String phone;
 

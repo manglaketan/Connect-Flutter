@@ -7,6 +7,7 @@ import 'navdrawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'custom_widgets.dart';
+import '../services/events.dart';
 
 class HomeWrap extends StatelessWidget {
   @override
@@ -22,11 +23,57 @@ class HomeWrap extends StatelessWidget {
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<String> currevents = [
-      'images/landscape.jpg',
-      'images/landscape2.png',
-      'images/landscape3.png'
+    List<Event> currevents = [
+      Event(
+          eventId: "1",
+          eventname: "Techno Hiring",
+          date: "11.07.2019",
+          poster: "images/event2.png"),
+      Event(
+          eventId: "2",
+          eventname: "Music Night",
+          date: "10.08.2019",
+          poster: "images/event3.jpg"),
+      Event(
+          eventId: "3",
+          eventname: "Booked Up",
+          date: "22.07.2019",
+          poster: "images/event4.jpg"),
+      Event(
+          eventId: "4",
+          eventname: "Vocal Idol",
+          date: "30.07.2019",
+          poster: "images/event6.jpeg")
     ];
+
+    List<Event> pastevents = [
+      Event(
+          eventId: "1",
+          eventname: "Alum Connect",
+          date: "13.05.2019",
+          poster: "images/event7.jpeg"),
+      Event(
+          eventId: "2",
+          eventname: "Video Worksh..",
+          date: "16.06.2019",
+          poster: "images/event8.jpeg"),
+      Event(
+          eventId: "3",
+          eventname: "Hack It",
+          date: "09.04.2019",
+          poster: "images/event 11.jpeg"),
+      Event(
+          eventId: "4",
+          eventname: "Comedy Night",
+          date: "30.07.2019",
+          poster: "images/event 10.jpeg")
+    ];
+    List<String> carouselevents = [
+      'images/event2.png',
+      'images/event3.jpg',
+      'images/event4.jpg',
+    ];
+
     var _screenheight = MediaQuery.of(context).size.height;
     var _screenwidth = MediaQuery.of(context).size.width;
     final user = Provider.of<User>(context);
@@ -48,7 +95,7 @@ class Home extends StatelessWidget {
           scrollDirection: Axis.vertical,
           children: <Widget>[
             CarouselSlider.builder(
-              itemCount: currevents.length,
+              itemCount: carouselevents.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.all(10.0),
@@ -63,7 +110,7 @@ class Home extends StatelessWidget {
                               blurRadius: 4.0)
                         ],
                         image: DecorationImage(
-                            image: AssetImage(currevents[index]),
+                            image: AssetImage(carouselevents[index]),
                             fit: BoxFit.cover)),
                   ),
                 );
@@ -95,16 +142,60 @@ class Home extends StatelessWidget {
             ),
             Container(
               height: 185.0,
-              child: ListView(
+              child: ListView.separated(
+                itemCount: currevents.length,
+                itemBuilder: (context, index) {
+                  return CustomCard(
+                    name: currevents[index].eventname,
+                    dat: currevents[index].date,
+                    action: ()=>print(currevents[index].eventname),
+                    imagepath: currevents[index].poster,
+                  );
+                },
+                separatorBuilder: (context, index) => SizedBox(
+                  width: 10.0,
+
+                ),
                 padding: EdgeInsets.all(5.0),
                 scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  CustomCard(
-                    name: "TEDxSMIT",
-                    imagepath: 'images/landscape3.png',
-                    dat: '19.04.2020',
-                  ),
-                ],
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 5.0, top: 5.0),
+              child: Text(
+                "Past Events",
+                style: TextStyle(
+                    fontSize: 25.0,
+                    color: myOrange,
+                    fontFamily: "Poppins",
+                    fontWeight: FontWeight.w700),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 5.0, right: _screenwidth * 0.65),
+              child: Container(
+                height: 3.0,
+                color: myOrange,
+              ),
+            ),
+            Container(
+              height: 185.0,
+              child: ListView.separated(
+                itemCount: pastevents.length,
+                itemBuilder: (context, index) {
+                  return CustomCard(
+                    name: pastevents[index].eventname,
+                    dat: pastevents[index].date,
+                    imagepath: pastevents[index].poster,
+                  );
+                },
+                separatorBuilder: (context, index) => SizedBox(
+                  width: 10.0,
+
+                ),
+                padding: EdgeInsets.all(5.0),
+                scrollDirection: Axis.horizontal,
               ),
             ),
           ],

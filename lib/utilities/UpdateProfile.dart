@@ -1,8 +1,12 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smit/services/user_database.dart';
 import 'package:smit/services/users.dart';
 import 'custom_widgets.dart';
+import 'dart:io';
+import 'package:path/path.dart' as Path;
+import 'package:image_picker/image_picker.dart';
 
 class Update_Profile extends StatefulWidget {
   UserData tempuser;
@@ -14,7 +18,8 @@ class Update_Profile extends StatefulWidget {
 }
 
 class _Update_ProfileState extends State<Update_Profile> {
-  String imagepath = 'images/landscape3.png';
+  File _image;
+  String _uploadedfileURL;
 
   TextEditingController _registration = TextEditingController();
   TextEditingController _name = TextEditingController();
@@ -28,6 +33,33 @@ class _Update_ProfileState extends State<Update_Profile> {
 
   @override
   Widget build(BuildContext context) {
+    Future chooseFile() async {
+      await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {
+        setState(() {
+          _image = image;
+        });
+      });
+    }
+
+    Future uploadFile() async {
+      StorageReference storageReference = FirebaseStorage.instance
+          .ref()
+          .child('profileimages/${Path.basename(_image.path)}}');
+      StorageUploadTask uploadTask = storageReference.putFile(_image);
+      await uploadTask.onComplete;
+      print('File Uploaded');
+      String url = await storageReference.getDownloadURL();
+      setState(() {
+        _uploadedfileURL = url;
+      });
+//      storageReference.getDownloadURL().then((fileURL) {
+//        setState(() {
+//          _uploadedfileURL = fileURL;
+//          print(_uploadedfileURL);
+//        });
+//      });
+    }
+
     setcursor(_registration, widget.tempuser.RegNo);
     setcursor(_name, widget.tempuser.name);
     setcursor(_phone, widget.tempuser.phone);
@@ -45,6 +77,7 @@ class _Update_ProfileState extends State<Update_Profile> {
                 shape: CircleBorder(),
                 onPressed: () async {
                   final user = Provider.of<User>(context, listen: false);
+                  await uploadFile();
                   await DatabaseService(uid: user.uid)
                       .updateUserData(_setupdatedUser());
                   Navigator.pushNamed(context, '/home');
@@ -87,9 +120,25 @@ class _Update_ProfileState extends State<Update_Profile> {
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Center(
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage(imagepath),
-                    radius: 50.0,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(40.0),
+                    onTap: chooseFile,
+                    child: CircleAvatar(
+                      backgroundColor: myOrange,
+                      backgroundImage:
+                          _image != null ? AssetImage(_image.path) : null,
+                      radius: 50.0,
+                      child: _image == null
+                          ? Text(
+                              "Upload       Image",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontFamily: "Lato",
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
+                            )
+                          : Text(""),
+                    ),
                   ),
                 ),
               ),
@@ -154,6 +203,7 @@ class _Update_ProfileState extends State<Update_Profile> {
   UserData _setupdatedUser() {
     return UserData(
         hobbies: _hobbies.text.split('\n'),
+        profileImage: _uploadedfileURL,
         achievements: _achievements.text.split('\n'),
         name: _name.text,
         phone: _phone.text,

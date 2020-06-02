@@ -58,6 +58,9 @@ class Profile extends StatelessWidget {
                               alignment: Alignment.centerLeft,
                               child: CircleAvatar(
                                 backgroundColor: myOrange,
+                                backgroundImage: NetworkImage(
+                                    data.profileImage
+                                ),
                                 radius: 60.0,
                               ),
                             ),
@@ -105,6 +108,10 @@ class Profile extends StatelessWidget {
                             CustomRow(
                               title: "Phone No.",
                               items: [data.phone],
+                            ),
+                            CustomRow(
+                              title: "Email",
+                              items: [user.email],
                             )
                           ],
                         ),

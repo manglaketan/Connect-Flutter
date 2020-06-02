@@ -5,6 +5,7 @@ import 'package:flutter/painting.dart';
 final Color myOrange = Color(0xFFF77F00);
 final Color myyellow = Color(0xFFFFAD00);
 final Color myblue = Color(0xFF003049);
+final Color mybluelight = Color(0xCC003049);
 final Color mygreen = Color(0xFF00916E);
 final Color mylightyellow = Color.fromRGBO(252, 196, 78, 1);
 
@@ -261,70 +262,74 @@ CUSTOM CARD FOR HOMEPAGE
 
 class CustomCard extends StatelessWidget {
   final String name, dat, imagepath;
+  final Function action;
 
-  const CustomCard({Key key, this.name, this.dat, this.imagepath})
+  const CustomCard({Key key, this.name, this.dat, this.imagepath, this.action})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 175.0,
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.black26, width: 1.0),
-          image: DecorationImage(
-            image: AssetImage(imagepath),
-            fit: BoxFit.cover,
-          ),
-          borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(5.0),
-              bottomRight: const Radius.circular(5.0)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.black26,
-                offset: Offset(2.5, 2.5),
-                blurRadius: 3.0),
-          ]),
-      child: Stack(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Opacity(
-              opacity: 0.8,
-              child: Container(
-                alignment: Alignment.bottomLeft,
-                height: 55.0,
-                decoration: BoxDecoration(
-                    color: myblue,
-                    borderRadius:
-                        BorderRadius.only(bottomRight: Radius.circular(5.0))),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        name,
-                        style: TextStyle(
+    return InkWell(
+      onTap: action,
+      child: Container(
+        width: 175.0,
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.black26, width: 1.0),
+            image: DecorationImage(
+              image: AssetImage(imagepath),
+              fit: BoxFit.cover,
+            ),
+            borderRadius: BorderRadius.only(
+                topLeft: const Radius.circular(5.0),
+                bottomRight: const Radius.circular(5.0)),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                  color: Colors.black26,
+                  offset: Offset(2.5, 2.5),
+                  blurRadius: 3.0),
+            ]),
+        child: Stack(
+          children: <Widget>[
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Opacity(
+                opacity: 0.8,
+                child: Container(
+                  alignment: Alignment.bottomLeft,
+                  height: 55.0,
+                  decoration: BoxDecoration(
+                      color: myblue,
+                      borderRadius:
+                          BorderRadius.only(bottomRight: Radius.circular(5.0))),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          name,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: "Poppins",
+                              fontSize: 23.0,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        Text(
+                          dat,
+                          style: TextStyle(
                             color: Colors.white,
                             fontFamily: "Poppins",
-                            fontSize: 23.0,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      Text(
-                        dat,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: "Poppins",
-                          fontSize: 14.0,
-                        ),
-                      )
-                    ],
+                            fontSize: 14.0,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -370,8 +375,9 @@ class FilterTile extends StatelessWidget {
 
 class Search_Item extends StatelessWidget {
   final String name, imagepath, description;
+  final Function action;
 
-  const Search_Item({Key key, this.name, this.imagepath, this.description})
+  const Search_Item({Key key, this.name, this.imagepath, this.description, this.action})
       : super(key: key);
 
   @override
@@ -379,6 +385,7 @@ class Search_Item extends StatelessWidget {
     return Card(
       elevation: 3.0,
       child: ListTile(
+        onTap: action,
         title: Text(
           name,
           style: TextStyle(
@@ -396,7 +403,7 @@ class Search_Item extends StatelessWidget {
               fontSize: 15.0),
         ),
         leading: CircleAvatar(
-          backgroundImage: AssetImage(imagepath),
+          backgroundImage: NetworkImage(imagepath),
           radius: 27.0,
         ),
       ),
@@ -501,17 +508,18 @@ class Message extends StatelessWidget {
           Text(
             from,
             style: TextStyle(
-              fontFamily: "Lato",
-              fontSize: 14.0,
-              fontWeight: FontWeight.w700
-            ),
+                fontFamily: "Lato",
+                fontSize: 14.0,
+                fontWeight: FontWeight.w700),
           ),
           Material(
-            color: me ? mygreen : mylightyellow,
+            color: me ? mygreen : mybluelight,
             borderRadius: BorderRadius.circular(10.0),
             elevation: 6.0,
             child: Container(
-              width: (text.length>40)?MediaQuery.of(context).size.width*0.8:null,
+              width: (text.length > 40)
+                  ? MediaQuery.of(context).size.width * 0.8
+                  : null,
               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
               child: Text(
                 text,

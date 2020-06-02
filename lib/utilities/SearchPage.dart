@@ -60,7 +60,7 @@ class _Search_PageState extends State<Search_Page> {
                 child: Row(
                   children: <Widget>[
                     IconButton(
-                      onPressed: ()=>print("Filtering"),
+                      onPressed: () => print("Filtering"),
                       padding: EdgeInsets.all(0),
                       iconSize: 30.0,
                       icon: Icon(
@@ -138,7 +138,7 @@ class Result {
 
   Result(DocumentSnapshot doc) {
     name = doc.data['name'];
-    imagepath = 'images/landscape3.png';
+    imagepath = doc.data['imagepath'];
     for (var a in doc.data['skills']) {
       description = (description + a.toString() + ', ');
     }

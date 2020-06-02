@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
     return StreamProvider<User>.value(
       value: AuthService().user,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "Connect",
         home: Wrapper(),
         onGenerateRoute: RouteGenerator.generateRoute,

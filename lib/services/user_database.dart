@@ -22,6 +22,7 @@ class DatabaseService {
       "achievements": _tempuser.achievements,
       "participation": _tempuser.participation,
       "phone": _tempuser.phone,
+      "imagepath":_tempuser.profileImage,
       "combined": combined
     });
   }
@@ -33,6 +34,7 @@ class DatabaseService {
           name: doc.data['name'],
           RegNo: doc.data['RegNo'],
           phone: doc.data['phone'],
+          profileImage: doc.data['imagepath'],
           skills: doc.data['skills'],
           participation: doc.data['participation'],
           achievements: doc.data['achievements'],
@@ -54,6 +56,7 @@ class DatabaseService {
         description: doc.data['description'],
         name: doc.data['name'],
         RegNo: doc.data['RegNo'],
+        profileImage: doc.data['imagepath'],
         phone: doc.data['phone'],
         skills: skills,
         participation: participation,

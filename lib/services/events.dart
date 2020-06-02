@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 class Event {
   String eventId;
   String eventname, description;
-  Image poster;
+  String poster;
   String date;
   Map<String, String> org_contact;
   String owner;

@@ -1,4 +1,5 @@
 import 'package:smit/utilities/Chat_Page.dart';
+import 'package:smit/utilities/myevents.dart';
 import '../services/users.dart';
 import 'package:flutter/material.dart';
 import '../utilities/EventPage.dart';
@@ -38,6 +39,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => Profile());
       case '/chat_page':
         return MaterialPageRoute(builder: (_) => Chat());
+      case '/my_events':
+        return MaterialPageRoute(builder: (_)=> MyEvents());
     }
   }
 }

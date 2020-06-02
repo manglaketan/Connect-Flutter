@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:smit/services/events_database.dart';
+import 'package:smit/services/users.dart';
 import 'custom_widgets.dart';
 import '../services/events.dart';
 
@@ -21,6 +24,8 @@ class _Update_EventState extends State<Update_Event> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
+    widget._tempevent = Event(eventId: '1');
     double _screenheight = MediaQuery.of(context).size.height;
     double _screenwidth = MediaQuery.of(context).size.width;
 
@@ -28,15 +33,32 @@ class _Update_EventState extends State<Update_Event> {
     setcursor(_ename, widget._tempevent.eventname);
     setcursor(_edate, widget._tempevent.date);
     setcursor(_edesc, widget._tempevent.description);
-    setcursor(_ephon, joinlist(widget._tempevent.org_contact.keys));
-    setcursor(_eorga, joinlist(widget._tempevent.org_contact.values));
+    setcursor(_ephon, joinlist(widget._tempevent.org_contact.keys.toList()));
+    setcursor(_eorga, joinlist(widget._tempevent.org_contact.values.toList()));
+
+    Event _setUpdatedEvent() {
+      Event eve = Event(
+          eventId: widget._tempevent.eventId,
+          eventname: _ename.text,
+          description: _ename.text,
+          date: _edate.text,
+          owner: user.uid,
+          org_contact:
+              mapping(_ephon.text.split('\n'), _eorga.text.split('\n')),
+          regnlink: _elink.text);
+      return eve;
+    }
 
     return Scaffold(
       appBar: AppBar(
           actions: <Widget>[
             FlatButton(
               shape: CircleBorder(),
-              onPressed: () => print("Save Pressed"),
+              onPressed: () async {
+                await EventDatabase(eventid: widget._tempevent.eventId)
+                    .updateUserData(_setUpdatedEvent());
+                Navigator.pushReplacementNamed(context, '/home');
+              },
               splashColor: Colors.white24,
               child: Text(
                 "Save",
@@ -61,7 +83,9 @@ class _Update_EventState extends State<Update_Event> {
           Padding(
             padding: const EdgeInsets.all(3.0),
             child: Container(
-              decoration: BoxDecoration(color: mygreen, boxShadow: <BoxShadow>[
+              decoration: BoxDecoration(
+                image: DecorationImage(image: AssetImage('images/event9.jpeg'),fit: BoxFit.cover),
+                  boxShadow: <BoxShadow>[
                 BoxShadow(
                     offset: Offset(0, 4),
                     color: Colors.black26,
@@ -71,7 +95,7 @@ class _Update_EventState extends State<Update_Event> {
               width: _screenwidth,
               child: Center(
                 child: Text(
-                  "It Will Contain Event Poster",
+                  "",
                   style: smallTextStyle(Colors.white),
                 ),
               ),
@@ -108,6 +132,12 @@ class _Update_EventState extends State<Update_Event> {
         ],
       ),
     );
+  }
+
+  Map<String, String> mapping(List<String> phone, List<String> names) {
+    Map<String, String> temp = Map();
+    for (var i = 0; i < phone.length; i++) temp[phone[i]] = names[i];
+    return temp;
   }
 
   void setcursor(TextEditingController val, String set) {

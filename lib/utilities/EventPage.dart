@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 
 class EventPage extends StatelessWidget {
   int eventId;
-  String name = "TEDxSMIT";
+  String name = "PUBg League";
   var description =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed bibendum est. Nunc id neque a tortor varius placerat eu et nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam et sodales tellus. Suspendisse vitae posuere lectus, eget interdum justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris varius mattis porttitor. Fusce mi arcu, venenatis a nibh non, maximus dictum diam. Pellentesque ultrices at dolor eu fringilla. Nam scelerisque sagittis nibh, ut finibus tortor lacinia sed.";
+      "Organized by Espenial, the gaming club of the college, this event aims to bring out the gamers and test their skills against the best players in the college. The prizes shall be as follows:\n1st: 5000/-\n2nd: 3000/-\n3rd: 1000/-";
 
   @override
   Widget build(BuildContext context) {
     Map organizers = {
-      "9001002341": "Aman Jaiswal",
-      "8977651432": "Kishan Kr. Ram",
-      "7882777182": "Ketan Mangla"
+      "8827939999": "Ramayan Rajesh",
+      "8829900011": "Keerthi Manju",
+      "9278939173": "Rohit Ranjan"
     };
     double _screenheight = MediaQuery.of(context).size.height;
     double _screenwidth = MediaQuery.of(context).size.width;
@@ -34,17 +34,21 @@ class EventPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(3.0),
             child: Container(
-              decoration: BoxDecoration(color: mygreen, boxShadow: <BoxShadow>[
-                BoxShadow(
-                    offset: Offset(0, 4),
-                    color: Colors.black26,
-                    blurRadius: 4.0)
-              ]),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('images/event9.jpeg'),
+                      fit: BoxFit.cover),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                        offset: Offset(0, 4),
+                        color: Colors.black26,
+                        blurRadius: 4.0)
+                  ]),
               height: _screenheight * 0.35,
               width: _screenwidth,
               child: Center(
                 child: Text(
-                  "It Will Contain Event Poster",
+                  "",
                   style: smallTextStyle(Colors.white),
                 ),
               ),
@@ -79,6 +83,37 @@ class EventPage extends StatelessWidget {
                   fontWeight: FontWeight.w700),
             ),
           ),
+
+          Padding(
+            padding: const EdgeInsets.only(left: 5.0, top: 5.0),
+            child: Text(
+              "Date",
+              style: TextStyle(
+                  fontSize: 25.0,
+                  color: myblue,
+                  fontFamily: "Poppins",
+                  fontWeight: FontWeight.w700),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 5.0, right: _screenwidth * 0.65),
+            child: Container(
+              height: 3.0,
+              color: myblue,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "22 December 2019",
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                  fontFamily: "Lato",
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.w700),
+            ),
+          ),
+
           Padding(
             padding: const EdgeInsets.only(left: 5.0, top: 5.0),
             child: Text(
